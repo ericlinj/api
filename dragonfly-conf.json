@@ -1,0 +1,7 @@
+{
+    "--title": "Dragonfly",
+    "--": [
+        "../dragonfly/src/jsduck-template.js"
+    ],
+    "--output": "dragonfly"
+}

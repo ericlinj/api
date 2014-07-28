@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='global-property-'>/**
+</span> * 模块描述
+ * 
+ * @ignore
+ * @author Ricky
+ */
+define(function () {
+<span id='main'>    /**
+</span>     * 单例
+     * 
+     * @class main
+     * @singleton
+     */
+    var main = {};
+    
+<span id='main-property-version'>    /**
+</span>     * 版本号
+     *
+     * @property {String} version
+     * @readonly
+     */
+    main.version = '0.1.0';
+    
+    return main;
+});
+
+<span id='global-property-'>/**
+</span> * 模块描述
+ * 
+ * @ignore
+ * @author Ricky
+ */
+define(function () {
+<span id='Base-method-constructor'><span id='Base'>    /**
+</span></span>     * 基类
+     * 
+     * @constructor
+     */
+    function Base() {
+        
+    }
+    
+    return Base;
+});
+
+<span id='global-property-'>/**
+</span> * 模块描述
+ * 
+ * @ignore
+ * @author Ricky
+ */
+define('moduleName', ['require', './Base'], function (require) {
+<span id='Control-method-constructor'><span id='Control'>    /**
+</span></span>     * 子类
+     * 
+     * @extends Base
+     * @constructor
+     */
+    function Control(name) {
+<span id='Control-property-loaded'>        /**
+</span>         * 初始化标志
+         * 
+         * @property {Boolean} loaded
+         */
+        this.loaded = false;
+    }
+    
+<span id='Control-method-pubMethod'>    /**
+</span>     * 公有方法
+     * 
+     * @param {Number} number 参数
+     * @return {Boolean} 结果
+     */
+    Control.prototype.pubMethod = function (number) {
+        
+    };
+    
+<span id='Control-method-priMethod'>    /**
+</span>     * 私有方法
+     * 
+     * @private
+     * @param {Number} number 参数
+     * @return void
+     */
+    Control.prototype.priMethod = function (number) {
+        
+    };
+    
+<span id='Control-event-onclick'>    /**
+</span>     * 点击时触发
+     * 
+     * @event onclick
+     */
+    Control.prototype.onclick = function () {
+        
+    };
+    
+    return Control;
+});
+</pre>
+</body>
+</html>
