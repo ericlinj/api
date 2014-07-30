@@ -1,0 +1,25 @@
+[
+    {
+        "name": "Dragonfly",
+        "groups": [
+            {
+                "name": "Base",
+                "classes": [
+                    "main"
+                ]
+            },
+            {
+                "name": "UI",
+                "classes": [
+                    "Button"
+                ]
+            },
+            {
+                "name": "Extension",
+                "classes": [
+                    "Extension"
+                ]
+            }
+        ]
+    }
+]

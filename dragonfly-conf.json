@@ -1,7 +1,8 @@
 {
     "--title": "Dragonfly",
+    "--output": "dragonfly",
+    "--categories": "dragonfly-cat.json",
     "--": [
         "../dragonfly/src/jsduck-template.js"
-    ],
-    "--output": "dragonfly"
+    ]
 }
