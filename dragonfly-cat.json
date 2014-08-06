@@ -3,21 +3,41 @@
         "name": "Dragonfly",
         "groups": [
             {
-                "name": "Base",
+                "name": "种子模块",
                 "classes": [
                     "main"
                 ]
             },
             {
-                "name": "UI",
+                "name": "基础模块",
                 "classes": [
-                    "Button"
+                    "base",
+                	"browser",
+                	"clazz",
+                    "dom",
+                    "event",
+                    "string"
                 ]
             },
             {
-                "name": "Extension",
+                "name": "工具模块",
                 "classes": [
-                    "Extension"
+                    "util",
+                    "cookie"
+                ]
+            },
+            {
+                "name": "UI组件",
+                "classes": [
+                    "Widget",
+                    "Button",
+                    "Table"
+                ]
+            },
+            {
+                "name": "扩展组件",
+                "classes": [
+                    
                 ]
             }
         ]

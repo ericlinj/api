@@ -3,6 +3,23 @@
     "--output": "dragonfly",
     "--categories": "dragonfly-cat.json",
     "--": [
-        "../dragonfly/src/jsduck-template.js"
+        "../dragonfly/src/main.js",
+        
+        "../dragonfly/src/base/base.js",
+        "../dragonfly/src/base/browser.js",
+        "../dragonfly/src/base/class.js",
+        "../dragonfly/src/base/dom.js",
+        "../dragonfly/src/base/event.js",
+        "../dragonfly/src/base/string.js",
+        
+        "../dragonfly/src/util/util.js",
+        "../dragonfly/src/util/cookie.js",
+        
+        "../dragonfly/src/Widget.js",
+        "../dragonfly/src/Button.js",
+        "../dragonfly/src/Table.js"
+    ],
+    "--external": [
+        "HTMLElement"
     ]
 }
