@@ -9,12 +9,12 @@
         "../dragonfly/src/base/browser.js",
         "../dragonfly/src/base/class.js",
         "../dragonfly/src/base/dom.js",
-        "../dragonfly/src/base/event.js",
         "../dragonfly/src/base/string.js",
         
         "../dragonfly/src/util/util.js",
         "../dragonfly/src/util/cookie.js",
         
+        "../dragonfly/src/Event.js",
         "../dragonfly/src/Widget.js",
         "../dragonfly/src/Button.js",
         "../dragonfly/src/Table.js"

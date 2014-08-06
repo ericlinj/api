@@ -15,8 +15,9 @@
                 	"browser",
                 	"clazz",
                     "dom",
-                    "event",
-                    "string"
+                    "string",
+                    "Event",
+                    "Widget"
                 ]
             },
             {
@@ -29,7 +30,6 @@
             {
                 "name": "UI组件",
                 "classes": [
-                    "Widget",
                     "Button",
                     "Table"
                 ]
