@@ -19,7 +19,5 @@
         "../dragonfly/src/Button.js",
         "../dragonfly/src/Table.js"
     ],
-    "--external": [
-        "HTMLElement"
-    ]
+    "--external": ["HTMLElement", "HTMLDOMEvent"]
 }

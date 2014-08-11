@@ -12,23 +12,22 @@
                 "name": "基础模块",
                 "classes": [
                     "base",
-                	"browser",
-                	"clazz",
+                    "browser",
+                    "clazz",
                     "dom",
-                    "string",
+                    "string"
+                ]
+            },
+            {
+                "name": "组件基础",
+                "classes": [
                     "Event",
+                    "EventTarget",
                     "Widget"
                 ]
             },
             {
-                "name": "工具模块",
-                "classes": [
-                    "util",
-                    "cookie"
-                ]
-            },
-            {
-                "name": "UI组件",
+                "name": "组件",
                 "classes": [
                     "Button",
                     "Table"
@@ -38,6 +37,13 @@
                 "name": "扩展组件",
                 "classes": [
                     
+                ]
+            },
+            {
+                "name": "工具模块",
+                "classes": [
+                    "util",
+                    "cookie"
                 ]
             }
         ]
