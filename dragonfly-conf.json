@@ -15,9 +15,11 @@
         "../dragonfly/src/util/cookie.js",
         
         "../dragonfly/src/Event.js",
+        "../dragonfly/src/EventQueue.js",
+        "../dragonfly/src/EventTarget.js",
         "../dragonfly/src/Widget.js",
         "../dragonfly/src/Button.js",
         "../dragonfly/src/Table.js"
     ],
-    "--external": ["HTMLElement", "HTMLDOMEvent"]
+    "--external": ["HTMLElement", "HTMLEvent"]
 }

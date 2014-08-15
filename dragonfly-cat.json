@@ -22,6 +22,7 @@
                 "name": "组件基础",
                 "classes": [
                     "Event",
+                    "EventQueue",
                     "EventTarget",
                     "Widget"
                 ]
