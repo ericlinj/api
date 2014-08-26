@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/*
+ * Dragonfly 0.1.0
+ * A flexible and light ui framework
+ * (c) 2014 Sogou Inc. All rights reserved.
+ * https://github.com/bizdevfe/dragonfly
+ */
+
+<span id='global-property-'>/**
+</span> * @ignore
+ * @author Ricky
+ */
+define(function (require) {
+    var _ = require('underscore').noConflict();
+    
+<span id='main'>    /**
+</span>     * 种子模块
+     * 
+     * @class main
+     * @singleton
+     */
+    var main = {};
+    
+<span id='main-property-version'>    /**
+</span>     * @property {String} version 版本号
+     * @readonly
+     */
+    main.version = '0.1.0';
+    
+    var previousD = window.D;
+    
+<span id='main-method-noConflict'>    /**
+</span>     * 无冲突处理
+     * 
+     * @return {Object} Dragonfly
+     */
+    main.noConflict = function() {
+        window.D = previousD;
+        return this;
+    };
+    
+    _.extend(main, {
+<span id='main-method-Button'>        /**
+</span>         * Button构造器，参见{@link Button}
+         * @method Button
+         */
+        Button: require('Button'),
+<span id='main-method-Table'>        /**
+</span>         * Table构造器，参见{@link Table}
+         * @method Table
+         */
+        Table: require('Table'),
+        
+<span id='main-method-DropdownButton'>        /**
+</span>         * DropdownButton构造器，参见{@link DropdownButton}
+         * @method DropdownButton
+         */
+        DropdownButton: require('extension/DropdownButton')
+    });
+    
+    return main;
+});
+</pre>
+</body>
+</html>
