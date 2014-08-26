@@ -37,7 +37,8 @@
             {
                 "name": "扩展组件",
                 "classes": [
-                    
+                    "Extension",
+                    "DropdownButton"
                 ]
             },
             {
