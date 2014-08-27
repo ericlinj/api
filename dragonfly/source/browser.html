@@ -30,12 +30,63 @@ define(function (require) {
      */
     var browser = {};
     
+    var ua = navigator.userAgent;
+    
+<span id='browser-property-isQuirks'>    /**
+</span>     * 是否为Quirks模式
+     * 
+     * @property {Boolean} isQuirks
+     */
+    browser.isQuirks = document.compatMode === 'BackCompat';
+    
+<span id='browser-property-isGecko'>    /**
+</span>     * 是否为Gecko内核
+     * 
+     * @property {Boolean} isGecko
+     */
+    browser.isGecko = /gecko/i.test(ua) &amp;&amp; !/like gecko/i.test(ua);
+    
+<span id='browser-property-isWebkit'>    /**
+</span>     * 是否为Webkit内核
+     * 
+     * @property {Boolean} isWebkit
+     */
+    browser.isWebkit = /webkit/i.test(ua);
+    
 <span id='browser-property-ie'>    /**
 </span>     * IE版本
      * 
      * @property {Number} ie
      */
     browser.ie = document.documentMode;
+    
+<span id='browser-property-chrome'>    /**
+</span>     * Chrome版本
+     * 
+     * @property {Number} chrome
+     */
+    browser.chrome = /chrome\/(\d+\.\d+)/i.test(ua) ? + RegExp.$1 : undefined;
+    
+<span id='browser-property-firefox'>    /**
+</span>     * Firefox版本
+     * 
+     * @property {Number} firefox
+     */
+    browser.firefox = /firefox\/(\d+\.\d+)/i.test(ua) ? + RegExp.$1 : undefined;
+    
+<span id='browser-property-safari'>    /**
+</span>     * Safari版本
+     * 
+     * @property {Number} safari
+     */
+    browser.safari = /(\d+\.\d+)(\.\d)?\ssafari/i.test(ua) ? + RegExp.$1 : undefined;
+    
+<span id='browser-property-opera'>    /**
+</span>     * Opera版本
+     * 
+     * @property {Number} opera
+     */
+    browser.opera = /opr\/(\d+\.\d+)/i.test(ua) ? + RegExp.$1 : undefined;
     
     return browser;
 });

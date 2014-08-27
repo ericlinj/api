@@ -390,8 +390,6 @@ define(function (require) {
                 delete this.painters;
                 delete this.main;
                 
-                this.destroyed = true;
-                
 <span id='Widget-event-afterdestroy'>                /**
 </span>                 * 销毁后
                  * @event afterdestroy
@@ -408,6 +406,8 @@ define(function (require) {
                         delete this[key];
                     }
                 }, this);
+                
+                this.destroyed = true;
             }
         },
         
