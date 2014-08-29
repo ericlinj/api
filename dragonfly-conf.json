@@ -19,6 +19,7 @@
         "../dragonfly/src/EventTarget.js",
         "../dragonfly/src/Widget.js",
         "../dragonfly/src/Button.js",
+        "../dragonfly/src/SidePanel.js",
         "../dragonfly/src/Table.js",
         
         "../dragonfly/src/Extension.js",
