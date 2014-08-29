@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='global-property-'>/**
+</span> * 浏览器检测
+ * 
+ * @ignore
+ */
+define(function (require) {
+<span id='browser'>    /**
+</span>     * 浏览器检测 
+     *
+     * @class browser
+     * @extends base
+     * @singleton
+     */
+    var browser = {};
+    
+    var ua = navigator.userAgent;
+    
+<span id='browser-property-isQuirks'>    /**
+</span>     * 是否为Quirks模式
+     * 
+     * @property {Boolean} isQuirks
+     */
+    browser.isQuirks = document.compatMode === 'BackCompat';
+    
+<span id='browser-property-isGecko'>    /**
+</span>     * 是否为Gecko内核
+     * 
+     * @property {Boolean} isGecko
+     */
+    browser.isGecko = /gecko/i.test(ua) &amp;&amp; !/like gecko/i.test(ua);
+    
+<span id='browser-property-isWebkit'>    /**
+</span>     * 是否为Webkit内核
+     * 
+     * @property {Boolean} isWebkit
+     */
+    browser.isWebkit = /webkit/i.test(ua);
+    
+<span id='browser-property-ie'>    /**
+</span>     * IE版本
+     * 
+     * @property {Number|undefined} ie
+     */
+    browser.ie = document.documentMode;
+    
+<span id='browser-property-badie'>    /**
+</span>     * IE6/7
+     * 
+     * @property {Boolean} badie
+     */
+    browser.badie = browser.ie === 6 || browser.ie === 7;
+    
+<span id='browser-property-chrome'>    /**
+</span>     * Chrome版本
+     * 
+     * @property {Number|undefined} chrome
+     */
+    browser.chrome = /chrome\/(\d+\.\d+)/i.test(ua) ? + RegExp.$1 : undefined;
+    
+<span id='browser-property-firefox'>    /**
+</span>     * Firefox版本
+     * 
+     * @property {Number|undefined} firefox
+     */
+    browser.firefox = /firefox\/(\d+\.\d+)/i.test(ua) ? + RegExp.$1 : undefined;
+    
+<span id='browser-property-safari'>    /**
+</span>     * Safari版本
+     * 
+     * @property {Number|undefined} safari
+     */
+    browser.safari = /(\d+\.\d+)(\.\d)?\ssafari/i.test(ua) ? + RegExp.$1 : undefined;
+    
+<span id='browser-property-opera'>    /**
+</span>     * Opera版本
+     * 
+     * @property {Number|undefined} opera
+     */
+    browser.opera = /opr\/(\d+\.\d+)/i.test(ua) ? + RegExp.$1 : undefined;
+    
+    return browser;
+});
+</pre>
+</body>
+</html>

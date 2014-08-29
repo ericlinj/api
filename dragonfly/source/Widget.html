@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='global-property-'>/**
+</span> * 控件基类
+ * 
+ * @ignore
+ * @author Ricky
+ */
+define(function (require) {
+    var _ = require('underscore').noConflict(),
+        base = require('base/base'),
+        Event = require('Event'),
+        EventTarget = require('EventTarget');
+    
+<span id='Widget-method-constructor'><span id='Widget'>    /**
+</span></span>     * 控件基类
+     * 
+     * @extends EventTarget
+     * @constructor
+     * @param {Object} [options] 初始化参数
+     */
+    function Widget(options) {
+        //生命阶段
+        this.inited = false;
+        this.rendered = false;
+        this.destroyed = false;
+        
+        //主元素
+        this.main = this.createMain();
+        
+        //初始化状态
+        this.initStates(options);
+        
+        //初始化参数
+        this.initOptions(options);
+        
+        //初始化绘制函数
+        this.initPainters();
+        
+        this.inited = true;
+    }
+    
+    Widget.prototype = {
+<span id='Widget-method-createMain'>        /**
+</span>         * 创建主元素（子类重写）
+         * 
+         * @protected
+         */
+        createMain: function() {
+            return document.createElement('div');
+        },
+        
+<span id='Widget-method-initStates'>        /**
+</span>         * 初始化控件状态
+         * 
+         * @param {Object} [options] 初始化参数
+         * @protected
+         */
+        initStates: function(options) {
+            this.states = {};
+            if (options &amp;&amp; typeof options.disabled !== 'undefined') {
+                this.states.disabled = options.disabled;
+            }
+            if (options &amp;&amp; typeof options.hidden !== 'undefined') {
+                this.states.hidden = options.hidden;
+            }
+        },
+        
+<span id='Widget-method-initOptions'>        /**
+</span>         * 初始化参数（子类重写）
+         * 
+         * @param {Object} [options] 初始化参数
+         * @protected
+         */
+        initOptions: function(options) {
+            this.options = _.extend({}, options || {});
+        },
+        
+<span id='Widget-method-initPainters'>        /**
+</span>         * 初始化绘制函数（子类重写）
+         * 
+         * @protected
+         * @abstract
+         */
+        initPainters: function() {
+            this.painters = {};
+        },
+        
+<span id='Widget-method-render'>        /**
+</span>         * 渲染
+         * 
+         * @param {HTMLElement|String} [target] HTML元素或其id
+         * @fires beforerender
+         * @fires afterrender
+         */
+        render: function(target) {
+            if (!this.rendered) {
+<span id='Widget-event-beforerender'>                /**
+</span>                 * 初次渲染前
+                 * @event beforerender
+                 */
+                this.fire('beforerender');
+                
+                //将主元素插入文档
+                this.appendMain(target);
+                //创建其他元素（子类实现）
+                this.initElements();
+                //绑定事件（子类实现）
+                this.initEvents();
+                //渲染
+                this.repaint(this.options);
+                //初始化扩展
+                this.initExtensions();
+                
+                this.rendered = true;
+                
+<span id='Widget-event-afterrender'>                /**
+</span>                 * 初次渲染后
+                 * @event afterrender
+                 */
+                this.fire('afterrender');
+            }
+        },
+        
+<span id='Widget-method-appendMain'>        /**
+</span>         * 将主元素插入文档
+         * 
+         * @param {HTMLElement|String} [target] HTML元素或其id
+         * @protected
+         */
+        appendMain: function(target) {
+            var container = base.g(target) || document.body;
+            container.appendChild(this.main);
+        },
+        
+<span id='Widget-method-initElements'>        /**
+</span>         * 创建其他元素（子类实现）
+         * 
+         * @protected
+         * @abstract
+         */
+        initElements: function() {},
+        
+<span id='Widget-method-initEvents'>        /**
+</span>         * 绑定事件（子类实现）
+         * 
+         * @protected
+         * @abstract
+         */
+        initEvents: function() {},
+        
+<span id='Widget-method-repaint'>        /**
+</span>         * 重绘
+         * 
+         * @param {Object} changes 更改的属性
+         * @protected
+         */
+        repaint: function(changes) {
+            _.each(_.extend({}, changes), function(value, key) {
+                var painter = this.painters[key];
+                if (painter) {
+                    painter.call(this, value);
+                }
+            }, this);
+        },
+        
+<span id='Widget-method-initExtensions'>        /**
+</span>         * 初始化扩展
+         * 
+         * @protected
+         */
+        initExtensions: function() {
+            var extensions = this.options.extensions;
+            if (!_.isArray(extensions)) {
+                extensions = this.options.extensions = [];
+            }
+            
+            _.each(extensions, function(extension) {
+                extension.target = this;
+                extension.init();
+            }, this);
+        },
+        
+<span id='Widget-method-setOptions'>        /**
+</span>         * 设置配置项
+         * 
+         * @param {Object} options 参数
+         * @protected
+         */
+        setOptions: function(options) {
+            var changes = {};
+            _.each(options, function(value, key) {
+                if (value !== this.options[key]) {
+                    changes[key] = this.options[key] = value;
+                }
+            }, this);
+            
+            if (!_.isEmpty(changes)) {
+                this.repaint(changes);
+            }
+        },
+        
+<span id='Widget-method-get'>        /**
+</span>         * 获取控件参数值
+         *
+         * @param {String} name 参数名
+         * @return {Mixed}
+         */
+        get: function(name) {
+            return this.options[name];
+        },
+        
+<span id='Widget-method-set'>        /**
+</span>         * 设置控件参数值
+         *
+         * @param {String} name 参数名
+         * @param {Mixed} value 参数值
+         */
+        set: function(name, value) {
+            var option = {};
+            option[name] = value;
+            this.setOptions(option);
+        },
+        
+<span id='Widget-method-hasState'>        /**
+</span>         * 是否处于某状态
+         * 
+         * @param {String} state 状态名
+         * @return {Boolean}
+         * @protected
+         */
+        hasState: function (state) {
+            return !!this.states[state];
+        },
+        
+<span id='Widget-method-addState'>        /**
+</span>         * 添加控件状态
+         * 
+         * @param {String} state 状态名
+         * @protected
+         */
+        addState: function (state) {
+            if (!this.hasState(state)) {
+                this.states[state] = true;
+                var option = {};
+                option[state] = true;
+                this.setOptions(option);
+            }
+        },
+        
+<span id='Widget-method-removeState'>        /**
+</span>         * 移除控件状态
+         * 
+         * @param {String} state 状态名
+         * @protected
+         */
+        removeState: function (state) {
+            if (this.hasState(state)) {
+                this.states[state] = false;
+                var option = {};
+                option[state] = false;
+                this.setOptions(option);
+            }
+        },
+        
+<span id='Widget-method-enable'>        /**
+</span>         * 启用控件
+         */
+        enable: function() {
+            this.removeState('disabled');
+        },
+        
+<span id='Widget-method-disable'>        /**
+</span>         * 禁用控件
+         */
+        disable: function() {
+            this.addState('disabled');
+        },
+        
+<span id='Widget-method-isDisabled'>        /**
+</span>         * 控件是否禁用
+         * 
+         * @return {Boolean}
+         */
+        isDisabled: function () {
+            return this.hasState('disabled');
+        },
+        
+<span id='Widget-method-show'>        /**
+</span>         * 显示控件
+         * 
+         * @fires beforeshow
+         * @fires aftershow
+         */
+        show: function() {
+<span id='Widget-event-beforeshow'>            /**
+</span>             * 显示前
+             * @event beforeshow
+             */
+            this.fire('beforeshow');
+            
+            this.removeState('hidden');
+            
+<span id='Widget-event-aftershow'>            /**
+</span>             * 显示后
+             * @event aftershow
+             */
+            this.fire('aftershow');
+        },
+        
+<span id='Widget-method-hide'>        /**
+</span>         * 隐藏控件
+         * 
+         * @fires beforehide
+         * @fires afterhide
+         */
+        hide: function() {
+<span id='Widget-event-beforehide'>            /**
+</span>             * 隐藏前
+             * @event beforehide
+             */
+            this.fire('beforehide');
+            
+            this.addState('hidden');
+            
+<span id='Widget-event-afterhide'>            /**
+</span>             * 隐藏后
+             * @event afterhide
+             */
+            this.fire('afterhide');
+        },
+        
+<span id='Widget-method-toggle'>        /**
+</span>         * 切换控件显隐状态
+         */
+        toggle: function() {
+            this[this.isHidden() ? 'show' : 'hide']();
+        },
+        
+<span id='Widget-method-isHidden'>        /**
+</span>         * 控件是否隐藏
+         * 
+         * @return {Boolean}
+         */
+        isHidden: function() {
+            return this.hasState('hidden');
+        },
+        
+<span id='Widget-method-destroy'>        /**
+</span>         * 销毁
+         * 
+         * @fires beforedestroy
+         * @fires afterdestroy
+         */
+        destroy: function() {
+            if (!this.destroyed) {
+<span id='Widget-event-beforedestroy'>                /**
+</span>                 * 销毁前
+                 * @event beforedestroy
+                 */
+                this.fire('beforedestroy');
+                
+                //解绑事件（子类实现）
+                this.destroyEvents();
+                //销毁扩展
+                this.destroyExtensions();
+                //移除主元素
+                this.removeMain();
+                //移除其他元素（子类实现）
+                this.removeElements();
+                
+                //删除属性
+                delete this.options;
+                delete this.states;
+                delete this.painters;
+                delete this.main;
+                
+<span id='Widget-event-afterdestroy'>                /**
+</span>                 * 销毁后
+                 * @event afterdestroy
+                 */
+                this.fire('afterdestroy');
+                
+                //销毁事件队列
+                this.off();
+                
+                //清除直接挂载的事件
+                _.each(this, function(value, key) {
+                    if (_.isFunction(value)) {
+                        this[key] = null;
+                        delete this[key];
+                    }
+                }, this);
+                
+                this.destroyed = true;
+            }
+        },
+        
+<span id='Widget-method-destroyExtensions'>        /**
+</span>         * 销毁扩展
+         * 
+         * @protected
+         */
+        destroyExtensions: function() {
+            var extensions = this.options.extensions;
+            _.each(extensions, function(extension, index) {
+                extension.destroy();
+                extensions[index] = null;
+            });
+        },
+        
+<span id='Widget-method-removeMain'>        /**
+</span>         * 移除主元素
+         * 
+         * @protected
+         */
+        removeMain: function() {
+            base.remove(this.main);
+        },
+        
+<span id='Widget-method-removeElements'>        /**
+</span>         * 移除其他元素（子类实现）
+         * 
+         * @protected
+         * @abstract
+         */
+        removeElements: function() {},
+        
+<span id='Widget-method-destroyEvents'>        /**
+</span>         * 解绑事件（子类实现）
+         * 
+         * @protected
+         * @abstract
+         */
+        destroyEvents: function() {}
+    };
+    
+    //获得事件处理功能
+    base.inherit(Widget, EventTarget);
+    
+    return Widget;
+});
+</pre>
+</body>
+</html>
